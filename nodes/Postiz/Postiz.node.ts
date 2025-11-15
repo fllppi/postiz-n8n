@@ -41,7 +41,7 @@ export class Postiz implements INodeType {
 						name: 'Create Post',
 						value: 'createPost',
 						description: 'Schedule a post to Postiz',
-						action: 'Schedule a post to Postiz',
+						action: 'Schedule a post to postiz',
 					},
 					{
 						name: 'Delete Post',
@@ -71,13 +71,13 @@ export class Postiz implements INodeType {
 						name: 'Upload File',
 						value: 'uploadFile',
 						description: 'Upload a file to Postiz',
-						action: 'Upload a file to Postiz',
+						action: 'Upload a file to postiz',
 					},
 					{
-						name: 'Upload File from URL',
+						name: 'Upload File From URL',
 						value: 'uploadFileFromURL',
 						description: 'Upload a file to Postiz from URL',
-						action: 'Upload a file to Postiz from URL',
+						action: 'Upload a file to postiz from url',
 					},
 					{
 						name: 'Video Function',
