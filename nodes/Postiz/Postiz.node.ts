@@ -74,6 +74,12 @@ export class Postiz implements INodeType {
 						action: 'Upload a file to postiz',
 					},
 					{
+						name: 'Upload File from URL',
+						value: 'uploadFileFromURL',
+						description: 'Upload a file to Postiz from URL',
+						action: 'Upload a file to postiz from URL',
+					},
+					{
 						name: 'Video Function',
 						value: 'videoFunction',
 						description: 'Execute video-related functions like loading voices',
@@ -591,6 +597,20 @@ export class Postiz implements INodeType {
 				required: true,
 				description: 'Name of the binary property that contains the file data',
 			},
+			// UploadFileFromURL parameters
+			{
+				displayName: 'URL',
+				name: 'url',
+				type: 'string',
+				displayOptions: {
+					show: {
+						operation: ['uploadFileFromURL'],
+					},
+				},
+				default: '',
+				required: true,
+				description: 'URL of the file to upload',
+			},
 			// DeletePost parameters
 			{
 				displayName: 'Post ID',
@@ -741,6 +761,19 @@ export class Postiz implements INodeType {
 					const formData = new FormData();
 					formData.append('file', blob, binaryData.fileName);
 					responseData = await postizApiRequest.call(this, 'POST', '/upload', formData);
+				}
+
+				if (operation === 'uploadFileFromURL') {
+					const url = this.getNodeParameter('url', i) as string;
+					// Check if it's a valid URL
+					if (!url.startsWith('http://') && !url.startsWith('https://')) {
+						throw new NodeOperationError(
+							this.getNode(),
+							`URL is not a valid URL: ${url}`,
+							{ itemIndex: i },
+						);
+					}
+					responseData = await postizApiRequest.call(this, 'POST', '/upload-from-url', { url });
 				}
 
 				if (operation === 'getIntegrations') {
