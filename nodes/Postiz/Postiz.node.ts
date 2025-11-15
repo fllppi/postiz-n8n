@@ -765,11 +765,16 @@ export class Postiz implements INodeType {
 
 				if (operation === 'uploadFileFromURL') {
 					const url = this.getNodeParameter('url', i) as string;
-					// Check if it's a valid URL
-					if (!url.startsWith('http://') && !url.startsWith('https://')) {
+					// Validate URL format
+					try {
+						const parsedUrl = new URL(url);
+						if (parsedUrl.protocol !== 'http:' && parsedUrl.protocol !== 'https:') {
+							throw new Error('Invalid protocol');
+						}
+					} catch {
 						throw new NodeOperationError(
 							this.getNode(),
-							`URL is not a valid URL: ${url}`,
+							`Invalid URL format: ${url}. Please provide a valid HTTP or HTTPS URL.`,
 							{ itemIndex: i },
 						);
 					}
