@@ -196,6 +196,6 @@ export async function execute(
 		case 'generateVideo':
 			return await generateVideo(context, itemIndex);
 		default:
-			throw new Error(`Unknown operation: ${operation}`);
+			throw new NodeOperationError(context.getNode(), `Unknown operation: ${operation}`);
 	}
 }

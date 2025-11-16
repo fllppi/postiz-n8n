@@ -1,4 +1,4 @@
-import { IExecuteFunctions, INodeProperties } from 'n8n-workflow';
+import { IExecuteFunctions, INodeProperties, NodeOperationError } from 'n8n-workflow';
 import { postizApiRequest } from '../../GenericFunctions';
 
 export const operation: INodeProperties = {
@@ -33,6 +33,6 @@ export async function execute(operation: string, context: IExecuteFunctions): Pr
 		case 'getIntegrations':
 			return await getIntegrations(context);
 		default:
-			throw new Error(`Unknown operation: ${operation}`);
+			throw new NodeOperationError(context.getNode(), `Unknown operation: ${operation}`);
 	}
 }

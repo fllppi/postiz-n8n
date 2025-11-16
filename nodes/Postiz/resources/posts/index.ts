@@ -1,4 +1,4 @@
-import { IExecuteFunctions, INodeProperties } from 'n8n-workflow';
+import { IExecuteFunctions, INodeProperties, NodeOperationError } from 'n8n-workflow';
 import { postizApiRequest } from '../../GenericFunctions';
 
 export const operation: INodeProperties = {
@@ -549,6 +549,6 @@ export async function execute(
 		case 'deletePost':
 			return await deletePost(context, itemIndex);
 		default:
-			throw new Error(`Unknown operation: ${operation}`);
+			throw new NodeOperationError(context.getNode(), `Unknown operation: ${operation}`);
 	}
 }
