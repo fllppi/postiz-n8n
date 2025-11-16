@@ -22,7 +22,7 @@ export async function postizApiRequest(
 	const credentials = await this.getCredentials('postizApi');
 
 	let options: IHttpRequestOptions = {
-		baseURL: credentials.host + '/public/v1' as string,
+		baseURL: (credentials.host + '/public/v1') as string,
 		method,
 		body,
 		qs: query,
@@ -32,7 +32,7 @@ export async function postizApiRequest(
 	if (!Object.keys(query).length) {
 		delete options.qs;
 	}
-	
+
 	options = Object.assign({}, options, option);
 	try {
 		return await this.helpers.httpRequestWithAuthentication.call(this, 'postizApi', options);
