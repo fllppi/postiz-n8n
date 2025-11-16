@@ -33,7 +33,7 @@ export class PostizApi implements ICredentialType {
 		properties: {
 			headers: {
 				Authorization: '={{$credentials.apiKey}}',
-			}
+			},
 		},
 	};
 
