@@ -92,7 +92,7 @@ export class Postiz implements INodeType {
 
 				switch (category) {
 					case 'integrations':
-						responseData = await integrationsModule.functions.execute(operation, this);
+						responseData = await integrationsModule.functions.execute(operation, this, i);
 						break;
 					case 'posts':
 						responseData = await postsModule.functions.execute(operation, this, i);

@@ -24,14 +24,18 @@ export const operation: INodeProperties = {
 
 export const properties: INodeProperties[] = [operation];
 
-export async function getIntegrations(context: IExecuteFunctions): Promise<any> {
+export async function getIntegrations(context: IExecuteFunctions, itemIndex: number): Promise<any> {
 	return await postizApiRequest.call(context, 'GET', '/integrations');
 }
 
-export async function execute(operation: string, context: IExecuteFunctions): Promise<any> {
+export async function execute(
+	operation: string,
+	context: IExecuteFunctions,
+	itemIndex: number
+): Promise<any> {
 	switch (operation) {
 		case 'getIntegrations':
-			return await getIntegrations(context);
+			return await getIntegrations(context, itemIndex);
 		default:
 			throw new NodeOperationError(context.getNode(), `Unknown operation: ${operation}`);
 	}
