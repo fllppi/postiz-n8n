@@ -34,22 +34,6 @@ const category: INodeProperties = {
 	default: 'posts',
 };
 
-// Module objects organizing properties and functions
-const integrationsModule = {
-	properties: integrations.properties,
-	functions: integrations,
-};
-
-const postsModule = {
-	properties: posts.properties,
-	functions: posts,
-};
-
-const mediaModule = {
-	properties: media.properties,
-	functions: media,
-};
-
 export class Postiz implements INodeType {
 	description: INodeTypeDescription = {
 		displayName: 'Postiz',
@@ -71,12 +55,7 @@ export class Postiz implements INodeType {
 				required: true,
 			},
 		],
-		properties: [
-			category,
-			...integrationsModule.properties,
-			...postsModule.properties,
-			...mediaModule.properties,
-		],
+		properties: [category, ...integrations.properties, ...posts.properties, ...media.properties],
 	};
 
 	async execute(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
@@ -92,13 +71,13 @@ export class Postiz implements INodeType {
 
 				switch (category) {
 					case 'integrations':
-						responseData = await integrationsModule.functions.execute(operation, this, i);
+						responseData = await integrations.execute(operation, this, i);
 						break;
 					case 'posts':
-						responseData = await postsModule.functions.execute(operation, this, i);
+						responseData = await posts.execute(operation, this, i);
 						break;
 					case 'media':
-						responseData = await mediaModule.functions.execute(operation, this, i);
+						responseData = await media.execute(operation, this, i);
 						break;
 					default:
 						throw new NodeOperationError(this.getNode(), `Unknown category: ${category}`);

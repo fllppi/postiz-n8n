@@ -31,7 +31,7 @@ export async function getIntegrations(context: IExecuteFunctions, itemIndex: num
 export async function execute(
 	operation: string,
 	context: IExecuteFunctions,
-	itemIndex: number
+	itemIndex: number,
 ): Promise<any> {
 	switch (operation) {
 		case 'getIntegrations':
